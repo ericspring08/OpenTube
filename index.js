@@ -5,12 +5,12 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'))
+    res.sendFile(path.join(__dirname, '/index.html'));   
 })
 
 app.get('/download', (req, res) => {
-    const url = req.params.url
-    console.log(url)
+    const url = req.query.url
+    console.log(decodeURIComponent(url))
     ytdl(url)
         .pipe(fs.createWriteStream('video.mp4'))
         .on('finish', () => {
@@ -26,5 +26,5 @@ app.get('/download', (req, res) => {
 })
 
 app.listen(3000, () => {
-    console.log('App listening on port 3000!')
+    console.log('App listening on port 3000!');
 })
