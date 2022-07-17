@@ -12,9 +12,9 @@ app.get('/download', (req, res) => {
     const url = req.query.url
     console.log(decodeURIComponent(url))
     ytdl(url)
-        .pipe(fs.createWriteStream('${decodeURIComponent(url)}.mp3'))
+        .pipe(fs.createWriteStream('video.mp3'))
         .on('finish', () => {
-            res.download('${decodeURIComponent(url)}.mp3', function (error) {
+            res.download('video.mp3', function (error) {
                 if (error) {
                     console.log(error);
                 } else {
