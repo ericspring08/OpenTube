@@ -3,9 +3,15 @@
           <title>OpenTube</title>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
+          <script src="https://cdn.tailwindcss.com"></script>
      </head>
      <body>
-          <input id="video-link" placeholder="Video URL..."/>
-          <button onclick="window.location = '/download?url=' + encodeURIComponent(document.getElementById('video-link').value)"> Download</button>
+          <input id="video-link" class="h-12 px-4 mb-2 text-lg text-gray-700 placeholder-gray-600 border rounded-lg focus:shadow-outline" type="text" placeholder="Enter URL..."/>
+          <button 
+               type="button" 
+               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+               onclick="window.location = '/download?url=' + encodeURIComponent(document.getElementById('video-link').value)"
+               >Download
+          </button>
      </body>
 </html>
