@@ -12,13 +12,13 @@ app.get('/download', (req, res) => {
     const url = req.query.url
     var format = req.query.format
 
-    console.log(decodeURIComponent(url))
-    console.log(`${format}type`)
+    console.log(`url: ${decodeURIComponent(url)}`)
+    console.log(`format: ${format}`)
 
     res.set({
         'Location': "/"
     })
-    
+
     ytdl(url)
         .pipe(fs.createWriteStream(`video.mp4`))
         .on('finish', () => {

@@ -43,7 +43,7 @@
           location.href = `/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&format=${format}`
      }
 
-     function setVideoType(_type) {
+     function setVideoType(_format) {
           document.getElementById('video-type-text').innerHTML = _type;
           switch(_format) {
                case "Video (.mp4)":
