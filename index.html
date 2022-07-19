@@ -38,18 +38,19 @@
      </body>
 </html>
 <script>
-     var type = "mp4"
+     var format = "mp4"
      function downloadVideo() {
-          location.href = `/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&type=${type}`;
+          location.href = `/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&format=${format}`
      }
+
      function setVideoType(_type) {
           document.getElementById('video-type-text').innerHTML = _type;
-          switch(_type) {
+          switch(_format) {
                case "Video (.mp4)":
-                    type = "mp4";
+                    format = "mp4";
                     break;
                case "Audio (.mp3)":
-                    type = "mp3";
+                    format = "mp3";
                     break;
           }
      }
