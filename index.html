@@ -4,20 +4,53 @@
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <script src="https://cdn.tailwindcss.com"></script>
+          <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
+          <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
      </head>
      <body class="bg-white dark:bg-gray-800">
-          <div class = "flex justify-center items-center h-screen">
+          <div class = "flex justify-center items-center h-screen flex-col">
                <div class = "w-3/4">   
                     <div class="relative">
                          <input type="search" id="video-link" class="block p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter URL..." required>
                          <button 
                               class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              onclick="window.location = '/download?url=' + encodeURIComponent(document.getElementById('video-link').value)"
+                              onclick="downloadVideo(getElementById('video-link').value)"
                               >Download
                          </button>
                     </div>
+               </div>
+
+               <button id="video-type" data-dropdown-toggle="video-type-dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                    <div id="video-type-text">Video (.mp4)</div><svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+               </button>
+               <div id="video-type-dropdown" class="hidden z-10 w-auto bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                         <li>
+                              <button class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onclick="setVideoType('Video (.mp4)')">Video (.mp4)</button>
+                         </li>
+                         <li>
+                              <button class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" onclick="setVideoType('Audio (.mp3)')">Audio (.mp3)</button>
+                         </li>
+                    </ul>
                </div>
           </div>     
                
      </body>
 </html>
+<script>
+     var type = "mp4"
+     function downloadVideo() {
+          location.href = `/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&type=${type}`;
+     }
+     function setVideoType(_type) {
+          document.getElementById('video-type-text').innerHTML = _type;
+          switch(_type) {
+               case "Video (.mp4)":
+                    type = "mp4";
+                    break;
+               case "Audio (.mp3)":
+                    type = "mp3";
+                    break;
+          }
+     }
+</script>
