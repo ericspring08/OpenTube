@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const ytdl = require('ytdl-core')
 const express = require('express')
+const {exec} = require('child_process')
 const app = express();
 
 app.get('/', (req, res) => {
@@ -19,17 +20,41 @@ app.get('/download', (req, res) => {
         'Location': "/"
     })
 
-    ytdl(url)
-        .pipe(fs.createWriteStream(`video.mp4`))
-        .on('finish', () => {
-            res.download(`video.mp4`, function (error) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Downloaded')
-                }
-            })
-        })
+    switch (format) {
+        case 'mp4':
+            ytdl(url)
+                .pipe(fs.createWriteStream(`video.mp4`))
+                .on('finish', () => {
+                    res.download(`video.mp4`, function (error) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Downloaded')
+                        }
+                    })
+                })
+            break
+        case 'mp3':
+            ytdl(url)
+                .pipe(fs.createWriteStream(`video.mp4`))
+                .on('finish', () => {
+                    exec(`ffmpeg -i video.mp4 -ab 320k -ac 2 -ar 44100 -vn video.mp3`)
+                        .on('close', () => {
+                            res.download(`video.mp3`, function (error) {
+                                if (error) {
+                                    console.log(error);
+                                } else {
+                                    console.log('Downloaded')
+                                }
+                        })
+                    })
+
+                })
+            break
+        default:
+            res.send('Format not supported')
+            break
+    }
 })
 
 app.listen(process.env.PORT || 3000, () => {

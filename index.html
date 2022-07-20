@@ -44,7 +44,6 @@
      }
 
      function setVideoType(_format) {
-          document.getElementById('video-type-text').innerHTML = _type;
           switch(_format) {
                case "Video (.mp4)":
                     format = "mp4";
@@ -52,6 +51,11 @@
                case "Audio (.mp3)":
                     format = "mp3";
                     break;
+          }
+          if(format == "mp4") {
+               document.getElementById('video-type-text').innerHTML = "Video (.mp4)";
+          } else {
+               document.getElementById('video-type-text').innerHTML = "Audio (.mp3)";
           }
      }
 </script>
