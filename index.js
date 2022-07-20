@@ -38,7 +38,7 @@ app.get('/download', (req, res) => {
             ytdl(url)
                 .pipe(fs.createWriteStream(`video.mp4`))
                 .on('finish', () => {
-                    exec(`ffmpeg -i video.mp4 -ab 320k -ac 2 -ar 44100 -vn video.mp3`)
+                    exec(`ffmpeg -y -i video.mp4 video.mp3`)
                         .on('close', () => {
                             res.download(`video.mp3`, function (error) {
                                 if (error) {
