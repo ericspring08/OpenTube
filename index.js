@@ -3,7 +3,10 @@ const path = require('path')
 const ytdl = require('ytdl-core')
 const express = require('express')
 const {exec} = require('child_process')
+const timeout = require('connect-timeout')
 const app = express();
+
+app.use(timeout('120000'))
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));   
