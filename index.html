@@ -40,7 +40,13 @@
 <script>
      var format = "mp4"
      function downloadVideo() {
-          location.href = `/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&format=${format}`
+          fetch(`/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&format=${format}`)
+               .then(res => res.json())
+               .then(data => {
+                    if(data.status == "success") {
+                         window.open(`download_file?file=${format}`)
+                    }
+               })
      }
 
      function setVideoType(_format) {
