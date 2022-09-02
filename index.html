@@ -9,10 +9,10 @@
      </head>
      <body class="bg-white dark:bg-gray-800">
           <div class = "flex justify-center items-center h-screen flex-col">
-               <h1 class = "text-black dark:text-white text-9xl p-11">Open Tube</h1>
+               <h1 class = "text-black dark:text-white text-9xl p-11" id="title">Open Tube</h1>
                <div class = "w-3/4">   
                     <div class="relative">
-                         <input type="search" id="video-link" class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter URL..." required>
+                         <input type="search" id="video-link" class="block p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter URL..." required>
                          <button 
                               class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                               onclick="downloadVideo(getElementById('video-link').value)"
@@ -41,6 +41,8 @@
 <script>
      var format = "mp4"
      function downloadVideo() {
+          let title = getElementById('title')
+          title.innerHTML = "Downloading..."
           fetch(`/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&format=${format}`)
                .then(res => res.json())
                .then(data => {
@@ -48,6 +50,7 @@
                          window.open(`download_file?file=${format}`)
                     }
                })
+          title.innerHTML = "Open Tube"
      }
 
      function setVideoType(_format) {
