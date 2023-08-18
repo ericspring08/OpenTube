@@ -1,7 +1,7 @@
-FROM ubuntu
+FROM node:alpine
 WORKDIR /app
 COPY package.json /app
-RUN apt-get update && apt-get install -y ffmpeg nodejs
 RUN npm install
+RUN apk add ffmpeg
 COPY . /app
 CMD ["npm", "start"]
