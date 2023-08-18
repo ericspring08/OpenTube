@@ -41,7 +41,7 @@
 <script>
      var format = "mp4"
      function downloadVideo() {
-          let title = getElementById('title')
+          let title = document.getElementById('title')
           title.innerHTML = "Downloading..."
           fetch(`/download?url=${encodeURIComponent(document.getElementById('video-link').value)}&format=${format}`)
                .then(res => res.json())
